@@ -4,8 +4,6 @@ class MovieListLi extends Component {
 	constructor(props) {
 		super(props);
 
-		this.movie = props.movie;
-
 		this.state = {
 
 		};
@@ -14,7 +12,7 @@ class MovieListLi extends Component {
 
 	render() {
 		return (
-			<li>{this.movie.title}</li>
+			<li>{this.props.movie.title}</li>
 		)
 	}// render
 
