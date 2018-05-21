@@ -8,7 +8,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-    this.movies = props.movies;
+    this.movies = props.movies || [];
 
 		this.state = {
 
