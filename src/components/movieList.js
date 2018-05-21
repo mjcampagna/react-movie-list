@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import AddMovie from './addMovie.js';
 import MovieSearch from './movieSearch.js';
 import MovieListLi from './movieListLi.js';
 
@@ -8,10 +9,25 @@ class MovieList extends Component {
 		super(props);
 
 		this.state = {
+			movieToAdd: '',
 			movies: this.props.movies
 		};
 
 	}// constructor
+
+	addMovieChange(event) {
+		this.setState({ movieToAdd: event.target.value });
+	} 
+
+	addMovieSubmit(event) {
+		event.preventDefault();
+		let movies = this.state.movies;
+		movies.push({ title: this.state.movieToAdd });
+		this.setState({
+			movieToAdd: '',
+			movies: movies
+		});
+	}
 
 	onFilterChange(event) {
 		let filteredList = this.props.movies;
@@ -31,6 +47,9 @@ class MovieList extends Component {
 	render() {
 		return (
 			<div>
+
+				<AddMovie movieToAdd={this.state.movieToAdd} addMovieChange={this.addMovieChange.bind(this)} addMovieSubmit={this.addMovieSubmit.bind(this)} />
+
 				<MovieSearch onFilterChange={this.onFilterChange.bind(this)} onFilterSubmit={this.onFilterSubmit} />
 				<ul id="movieList">
 					{this.state.movies.map( (movie) =>

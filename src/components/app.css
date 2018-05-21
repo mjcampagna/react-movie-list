@@ -10,7 +10,8 @@ html {
 }
 
 body {
+  box-sizing: border-box;
   height: 100%;
   margin: 0;
-  padding: 36px 48px;
+  padding: 24px;
 }
