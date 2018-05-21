@@ -15,7 +15,7 @@ class MovieSearch extends Component {
 			<form>
 				<input type="text" id="filterMovieList" onChange={(e) => this.props.onFilterChange(e)} />
 				<label htmlFor="filterMovieList">Filter Movies</label>
-				<button type="submit" id="filterMovieList_submit" onClick={(e) => this.props.onFilterSubmit(e)}>Filter</button>
+				{/* <button type="submit" id="filterMovieList_submit" onClick={(e) => this.props.onFilterSubmit(e)}>Filter</button> */}
 			</form>
 		)
 	}// render
