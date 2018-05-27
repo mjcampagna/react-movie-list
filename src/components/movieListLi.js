@@ -5,14 +5,20 @@ class MovieListLi extends Component {
 		super(props);
 
 		this.state = {
-
 		};
-
-	}// constructor
+	} // constructor
 
 	render() {
 		return (
-			<li>{this.props.movie.title}</li>
+			<li>
+				{this.props.movie.title}
+
+				{/* <input type="checkbox" checked={this.state.watched} 
+					onChange={(e) => this.props.onWatchedChange(e)}
+				/>
+				<label></label> */}
+
+			</li>
 		)
 	}// render
 

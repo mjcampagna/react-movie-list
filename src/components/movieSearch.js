@@ -1,25 +1,16 @@
 import React, {Component} from 'react';
 
 class MovieSearch extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-
-		};
-
-	}// constructor
-
 	render() {
 		return (
-			<form>
-				<input type="text" id="filterMovieList" onChange={(e) => this.props.onFilterChange(e)} />
+			<form onSubmit={(e) => this.props.handleSearchSubmit(e)}>
+				<input type="text" id="filterMovieList" value={this.props.search} 
+					onChange={(e) => this.props.handleSearchChange(e)} 
+				/>
 				<label htmlFor="filterMovieList">Filter Movies</label>
 				{/* <button type="submit" id="filterMovieList_submit" onClick={(e) => this.props.onFilterSubmit(e)}>Filter</button> */}
 			</form>
 		)
-	}// render
-
+	} // render
 };
-
 export default MovieSearch;

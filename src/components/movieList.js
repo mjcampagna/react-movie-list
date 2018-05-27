@@ -9,56 +9,55 @@ class MovieList extends Component {
 		super(props);
 
 		this.state = {
-			movieToAdd: '',
-			movies: this.props.movies
+			movieList: this.props.movies,
+			search: ''
 		};
+	} // constructor
 
-	}// constructor
-
-	addMovieChange(event) {
-		this.setState({ movieToAdd: event.target.value });
-	} 
-
-	addMovieSubmit(event) {
+	handleSearchChange(event) {
 		event.preventDefault();
-		let movies = this.state.movies;
-		movies.push({ title: this.state.movieToAdd });
-		this.setState({
-			movieToAdd: '',
-			movies: movies
+		let search = event.target.value;
+		this.setState({ search: search });
+
+		let filteredMovieList = this.props.movies;
+		filteredMovieList = filteredMovieList.filter( movie => {
+			return movie.title.toLowerCase().includes( search.toLowerCase() );
 		});
+		this.setState({ movieList: filteredMovieList });	
 	}
 
-	onFilterChange(event) {
-		let filteredList = this.props.movies;
-		filteredList = filteredList.filter((movie) => {
-			return movie.title.toLowerCase().includes( event.target.value.toLowerCase() );
-		});
-		this.setState({
-			movies: filteredList
-		});
-	}
-
-	onFilterSubmit(event) {
+	handleSearchSubmit(event) {
 		event.preventDefault();
-		console.log('Filter is clicked!');
+		this.setState({ search: '' });
+		this.setState({ movieList: this.props.movies });	
 	}
 
 	render() {
 		return (
 			<div>
 
-				<AddMovie movieToAdd={this.state.movieToAdd} addMovieChange={this.addMovieChange.bind(this)} addMovieSubmit={this.addMovieSubmit.bind(this)} />
+				<AddMovie 
+					movieToAdd={this.props.movieToAdd} 
+					handleAddChange={this.props.handleAddChange} 
+					handleAddSubmit={this.props.handleAddSubmit}
+				/>
 
-				<MovieSearch onFilterChange={this.onFilterChange.bind(this)} onFilterSubmit={this.onFilterSubmit} />
+				<MovieSearch search={this.state.search} 
+					handleSearchChange={this.handleSearchChange.bind(this)} 
+					handleSearchSubmit={this.handleSearchSubmit.bind(this)} 
+				/>
+
 				<ul id="movieList">
-					{this.state.movies.map( (movie) =>
-						<MovieListLi movie={movie} key={movie.title} />
+					{this.state.movieList.map( (movie) =>
+						<MovieListLi key={movie.title} movie={movie} 
+
+						/>
 					)}
 				</ul>
+
 			</div>
 		)
-	}// render
+	} // render
 
 };
 

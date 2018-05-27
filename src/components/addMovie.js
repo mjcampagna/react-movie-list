@@ -1,24 +1,16 @@
 import React, {Component} from 'react';
 
 class AddMovie extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-		};
-
-	}// constructor
-
 	render() {
 		return (
-			<form>
-				<input type="text" id="addMovie" value={this.props.movieToAdd} onChange={(e) => this.props.addMovieChange(e)} />
+			<form onSubmit={(e) => this.props.handleAddSubmit(e)}>
+				<input type="text" id="addMovie" value={this.props.movieToAdd} 
+					onChange={(e) => this.props.handleAddChange(e)} 
+				/>
 				<label htmlFor="addMovie">Add Movie</label>
-				<button type="submit" id="addMovie_submit" onClick={(e) => this.props.addMovieSubmit(e)}>Add</button>
+				<button type="submit">Add</button>
 			</form>
 		)
-	}// render
-
+	} // render
 };
-
 export default AddMovie;
