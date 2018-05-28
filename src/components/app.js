@@ -10,7 +10,8 @@ class App extends Component {
 
 		this.state = {
       movies: props.movies || [],
-			movieToAdd: ''
+      movieToAdd: '',
+      search: ''
 		};
 	} // constructor
 
@@ -38,14 +39,53 @@ class App extends Component {
     this.setState({ movies: movies });
   }
 
+  handleSearchChange(event) {
+		event.preventDefault();
+
+    let search = event.target.value;
+		this.setState({
+      search: search
+    });
+
+		let filteredMovieList = this.state.movies;
+		filteredMovieList = filteredMovieList.filter( movie => {
+			return movie.title.toLowerCase().includes( search.toLowerCase() );
+		});
+		this.setState({
+      moviesDisplayed: filteredMovieList
+    });	
+	}
+
+  handleSearchSubmit(event) {
+		event.preventDefault();
+		this.setState({
+      search: '',
+      moviesDisplayed: this.state.movies 
+    });	
+	}
+
+	handleSearchRadios(event) {
+
+	}
+
+  componentWillMount() {
+    this.setState({
+      moviesDisplayed: this.state.movies
+    })
+  }
+
   render() {
     return (
       <MovieList 
-        movies={this.state.movies} 
+        movies={this.state.moviesDisplayed} 
         movieToAdd={this.state.movieToAdd} 
         handleAddChange={this.handleAddChange.bind(this)} 
         handleAddSubmit={this.handleAddSubmit.bind(this)} 
         handleWatchedChange={this.handleWatchedChange.bind(this)}
+        handleSearchChange={this.handleSearchChange.bind(this)} 
+        handleSearchSubmit={this.handleSearchSubmit.bind(this)} 
+        handleSearchRadios={this.handleSearchRadios.bind(this)}
+
       />
     );
   } // render

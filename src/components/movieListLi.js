@@ -16,13 +16,16 @@ class MovieListLi extends Component {
 	}
 
 	render() {
+
+		const movieId = this.props.movie.title.split(' ').join('').toLowerCase();
+
 		return (
 			<li>
-				<span className="movie-title">{this.props.movie.title}</span>
-				<input type="checkbox" id={'movie-' + this.props.index} checked={this.state.watched} 
+				<span className="movie-title">{this.props.movie.title}</span> 
+				<input type="checkbox" id={movieId} checked={this.state.watched} 
 					onChange={(e) => this.handleCheckboxToggle(e)}
 				/>
-				<label htmlFor={'movie-' + this.props.index}>{this.state.watched ? 'Watched' : 'Unwatched'}</label>
+				<label htmlFor={movieId}>{this.state.watched ? 'Watched' : 'Unwatched'}</label>
 			</li>
 		)
 	} // render
