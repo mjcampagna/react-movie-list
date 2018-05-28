@@ -48,9 +48,9 @@ class MovieList extends Component {
 				/>
 
 				<ul id="movieList">
-					{this.state.movieList.map( (movie) =>
-						<MovieListLi key={movie.title} movie={movie} 
-
+					{this.state.movieList.map( (movie, i) =>
+						<MovieListLi key={movie.title} movie={movie} index={i} 
+							handleWatchedChange={this.props.handleWatchedChange}
 						/>
 					)}
 				</ul>

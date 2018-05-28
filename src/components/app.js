@@ -30,7 +30,13 @@ class App extends Component {
       movies: movies,
       movieToAdd: ''
      });
-	}
+  }
+  
+  handleWatchedChange(event, index) {
+    let movies = this.state.movies;
+    movies[index].watched = !movies[index].watched;
+    this.setState({ movies: movies });
+  }
 
   render() {
     return (
@@ -38,7 +44,8 @@ class App extends Component {
         movies={this.state.movies} 
         movieToAdd={this.state.movieToAdd} 
         handleAddChange={this.handleAddChange.bind(this)} 
-        handleAddSubmit={this.handleAddSubmit.bind(this)}
+        handleAddSubmit={this.handleAddSubmit.bind(this)} 
+        handleWatchedChange={this.handleWatchedChange.bind(this)}
       />
     );
   } // render

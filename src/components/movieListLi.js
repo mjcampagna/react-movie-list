@@ -5,22 +5,27 @@ class MovieListLi extends Component {
 		super(props);
 
 		this.state = {
+			watched: this.props.movie.watched
 		};
 	} // constructor
+
+	handleCheckboxToggle(event) {
+		let watched = this.state.watched;
+		this.setState({ watched: !watched });
+		this.props.handleWatchedChange(event, this.props.index);
+	}
 
 	render() {
 		return (
 			<li>
-				{this.props.movie.title}
-
-				{/* <input type="checkbox" checked={this.state.watched} 
-					onChange={(e) => this.props.onWatchedChange(e)}
+				<span className="movie-title">{this.props.movie.title}</span>
+				<input type="checkbox" id={'movie-' + this.props.index} checked={this.state.watched} 
+					onChange={(e) => this.handleCheckboxToggle(e)}
 				/>
-				<label></label> */}
-
+				<label htmlFor={'movie-' + this.props.index}>{this.state.watched ? 'Watched' : 'Unwatched'}</label>
 			</li>
 		)
-	}// render
+	} // render
 
 };
 
