@@ -15,7 +15,7 @@ class MovieList extends Component {
   render() {
     return (
       <div>
-
+        <h1><span>Orange</span> You In Love With Movies?</h1>
         <MovieAdd 
           newMovieTitle={this.props.newMovieTitle} 
           handleAddMovieOnChange={this.props.handleAddMovieOnChange} 

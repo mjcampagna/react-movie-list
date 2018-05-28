@@ -19,7 +19,22 @@ body {
 #app {
   margin: 0 auto;
   max-width: 614px;
-  padding: 24px;
+  padding: 0 24px;;
+}
+
+h1 {
+  background-color: #191919;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 1.125rem;
+  letter-spacing: 0.0125rem;
+  line-height: 3rem;
+  margin: 1.125rem 0;
+  padding: 0 12px;
+}
+
+h1 span {
+  color: orange;
 }
 
 form {
@@ -52,7 +67,7 @@ form input[type="text"]::placeholder {
 }
 
 form input[type="text"] ~ button {
-  background-color: #000000;
+  background-color: #191919;
   border: none;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -83,7 +98,7 @@ form input[type="text"]:focus ~ button {
 }
 
 #movieSearch > button {
-  background-color: #000000;
+  background-color: #191919;
   border: none;
   border-radius: 3px;
   color: #ffffff;
@@ -123,7 +138,7 @@ ul#movieList li {
   line-height: 2rem;
   list-style: none;
   margin: 0;
-  padding: 0 112px 0 24px;
+  padding: 0 112px 0 12px;
   position: relative;
 }
 

@@ -92,20 +92,24 @@ class App extends Component {
 
   handleAddMovieOnSubmit(event) {
     event.preventDefault();
-    let movies = this.state.movies;
-    movies.push({
-      title: this.state.newMovieTitle,
-      watched: false
-    });
-    this.setState((state, props) => {
-      return {
-        movies: movies,
-        search: '',
-        newMovieTitle: ''
-      }
-    }, () => {
-      this.searchMovieList('')
-    });
+
+    // https://api.themoviedb.org/3/movie/76341?api_key={api_key}
+
+    // let movies = this.state.movies;
+    // movies.push({
+    //   title: this.state.newMovieTitle,
+    //   watched: false
+    // });
+    // this.setState((state, props) => {
+    //   return {
+    //     movies: movies,
+    //     search: '',
+    //     newMovieTitle: ''
+    //   }
+    // }, () => {
+    //   this.searchMovieList('')
+    // });
+
   }
 
   render() {
