@@ -10,9 +10,9 @@ class App extends Component {
 
 		this.state = {
       movies: props.movies || [],
-      movieToAdd: '',
       search: '',
-      filterWatched: 'all'
+      watchedFilter: 'all',
+      newMovieTitle: ''
 		};
 	} // constructor
 
@@ -26,90 +26,100 @@ class App extends Component {
     this.searchMovieList('');
   }
 
+  searchMovieList(search) {
+    let movieList = this.state.movies;
+  	let searchedMovieList = movieList.filter( (movie, i) => {
+      movie.index = i;
+      return movie.title.toLowerCase().includes(search.toLowerCase()) && this.watchedFilter(movie);
+    });
+    this.setState((state, props) => {
+      return { moviesDisplayed: searchedMovieList };
+    });
+  }
 
-  filterMovie(movie) {
-    let filter = this.state.filterWatched;
-    if ( filter !== 'all' ) {
-      return movie.watched === filter;
+  handleSearchOnChange(event) {
+    let search = event.target.value;
+    this.setState({
+      search: search
+    }, () => {
+      this.searchMovieList( this.state.search )
+    });
+  }
+
+  handleSearchOnSubmit(event) {
+    event.preventDefault();
+    this.setState((state, props) => {
+      return { search: '' };
+    }, () => {
+      this.searchMovieList( this.state.search )
+    });
+  }
+
+  handleWatchedButtonOnClick(event, index) {
+    let movies = this.state.movies;
+    movies[index].watched = !movies[index].watched;
+    this.setState((state, props) => {
+      movies: movies
+    }, () => {
+      this.searchMovieList( this.state.search )
+    });
+  }
+
+  watchedFilter(movie) {
+    let watchedFilter = this.state.watchedFilter;
+    if ( watchedFilter !== 'all' ) {
+      return movie.watched === watchedFilter;
     }
     return true;
   }
 
-  searchMovieList(search) {
-		let searchedMovieList = this.state.movies;
-		searchedMovieList = searchedMovieList.filter( movie => {
-      return movie.title.toLowerCase().includes( search.toLowerCase() ) && this.filterMovie(movie);
+  handleWatchedFilterOnClick(event) {
+    let newFilter = event.target.value;
+    if ( newFilter === 'watched' ) newFilter = true;
+    if ( newFilter === 'unwatched' ) newFilter = false;
+    this.setState( (state, props) => {
+      return { watchedFilter: newFilter };
+    }, () => {
+      this.searchMovieList( this.state.search )
     });
+  }
+
+  handleAddMovieOnChange(event) {
     this.setState({
-      moviesDisplayed: searchedMovieList
-    });	
-  }
-
-	handleAddChange(event) {
-		event.preventDefault();
-		this.setState({ movieToAdd: event.target.value });
-	}
-
-	handleAddSubmit(event) {
-		event.preventDefault();
-    let movies = this.state.movies;
-    movies.push({ 
-      title: this.state.movieToAdd, 
-      watched: false 
+      newMovieTitle: event.target.value
     });
-    this.setState({ 
-      movies: movies,
-      movieToAdd: ''
-     });
   }
-  
-  handleWatchedChange(event, index) {
+
+  handleAddMovieOnSubmit(event) {
+    event.preventDefault();
     let movies = this.state.movies;
-    movies[index].watched = !movies[index].watched;
-    this.setState({ movies: movies });
-  }
-
-  handleSearchChange(event) {
-		event.preventDefault();
-    let search = event.target.value;
-		this.setState({
-      search: search
+    movies.push({
+      title: this.state.newMovieTitle,
+      watched: false
     });
-    this.searchMovieList(search);
-	}
-
-  handleSearchSubmit(event) {
-		event.preventDefault();
-		this.setState({
-      search: '',
-      moviesDisplayed: this.state.movies 
-    });	
-	}
-
-  handleFilterChange(event) {
-    let filter = event.target.value;
-    if ( filter === 'watched' ) filter = true;
-    if ( filter === 'unwatched' ) filter = false;
-    this.setState( (prevState) => {
-      return { filterWatched: filter };
-    },
-    this.searchMovieList( this.state.search ));
-
+    this.setState((state, props) => {
+      return {
+        movies: movies,
+        search: '',
+        newMovieTitle: ''
+      }
+    }, () => {
+      this.searchMovieList('')
+    });
   }
 
   render() {
     return (
       <MovieList 
         movies={this.state.moviesDisplayed} 
-        movieToAdd={this.state.movieToAdd} 
         search={this.state.search} 
-
-        handleAddChange={this.handleAddChange.bind(this)} 
-        handleAddSubmit={this.handleAddSubmit.bind(this)} 
-        handleWatchedChange={this.handleWatchedChange.bind(this)}
-        handleSearchChange={this.handleSearchChange.bind(this)} 
-        handleSearchSubmit={this.handleSearchSubmit.bind(this)} 
-        handleFilterChange={this.handleFilterChange.bind(this)} 
+        newMovieTitle={this.state.newMovieTitle} 
+        handleSearchOnChange={this.handleSearchOnChange.bind(this)} 
+        handleSearchOnSubmit={this.handleSearchOnSubmit.bind(this)} 
+        handleWatchedButtonOnClick={this.handleWatchedButtonOnClick.bind(this)} 
+        handleWatchedFilterOnClick={this.handleWatchedFilterOnClick.bind(this)} 
+        handleAddMovieOnChange={this.handleAddMovieOnChange.bind(this)} 
+        handleAddMovieOnSubmit={this.handleAddMovieOnSubmit.bind(this)} 
       />
     );
   } // render
