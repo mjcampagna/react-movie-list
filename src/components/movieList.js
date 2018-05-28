@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-// import AddMovie from './addMovie.js';
 import MovieAdd from './movieAdd.js';
 import MovieSearch from './movieSearch.js';
 import MovieListLi from './movieListLi.js';
