@@ -26,6 +26,7 @@ class MovieSearch extends Component {
             value={this.props.search} 
             onChange={(e) => this.props.handleSearchOnChange(e)}
           />
+          <button type="submit">X</button>
         </form>
       </div>
     )
