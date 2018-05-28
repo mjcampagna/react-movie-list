@@ -13,7 +13,7 @@ class MovieListLi extends Component {
 		return (
 			<li>
 				<span className="movie-title">{this.props.movie.title}</span>
-				<button type="button" onClick={(e) => this.props.handleWatchedButtonOnClick(e, this.props.movie.index)}>{this.props.movie.watched ? 'Watched' : 'Unwatched'}</button>
+				<button type="button" className={this.props.movie.watched ? 'watched' : 'unwatched'} onClick={(e) => this.props.handleWatchedButtonOnClick(e, this.props.movie.index)}>{this.props.movie.watched ? 'Watched' : 'Unwatched'}</button>
 			</li>
 		)
 	} // render

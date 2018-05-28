@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-class AddMovie extends Component {
+class MovieAdd extends Component {
 	render() {
 		return (
-			<form onSubmit={(e) => this.props.handleAddMovieOnSubmit(e)}>
+			<form id="movieAdd" onSubmit={(e) => this.props.handleAddMovieOnSubmit(e)}>
 				<input type="text" id="addMovie" placeholder="Add Movie Title" 
 					onChange={(e) => this.props.handleAddMovieOnChange(e)}
 				/>
@@ -13,4 +13,4 @@ class AddMovie extends Component {
 		)
 	} // render
 };
-export default AddMovie;
+export default MovieAdd;

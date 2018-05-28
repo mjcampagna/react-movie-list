@@ -1,13 +1,25 @@
 import React, {Component} from 'react';
 
 class MovieSearch extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      active: 'all'
+    }
+  } // constructor
+
+  setActiveButton(event) {
+    this.props.handleWatchedFilterOnClick(event);
+  }
+
   render() {
     return (
-      <div>
+      <div id="movieSearch">
 
-        <button type="button" value="all" onClick={(e) => this.props.handleWatchedFilterOnClick(e)}>All</button>
-				<button type="button" value="watched" onClick={(e) => this.props.handleWatchedFilterOnClick(e)}>Watched</button>
-				<button type="button" value="unwatched" onClick={(e) => this.props.handleWatchedFilterOnClick(e)}>Unwatched</button>
+        <button type="button" value="all" className={this.props.watchedFilter === 'all' ? 'active' : ''} onClick={(e) => this.props.handleWatchedFilterOnClick(e)}>All</button>
+        <button type="button" value="watched" className={this.props.watchedFilter === true ? 'active' : ''} onClick={(e) => this.props.handleWatchedFilterOnClick(e)}>Watched</button>
+        <button type="button" value="unwatched" className={this.props.watchedFilter === false ? 'active' : ''} onClick={(e) => this.props.handleWatchedFilterOnClick(e)}>Unwatched</button>
 
         <form onSubmit={(e) => this.props.handleSearchOnSubmit(e)}>
           <input type="text" id="searchMovieList" placeholder="Filter Movies by Title" 
@@ -18,13 +30,6 @@ class MovieSearch extends Component {
       </div>
     )
 
-    // return (
-    //   <form onSubmit={(e) => this.props.handleSearchSubmit(e)}>
-    //     <input type="text" id="searchMovieList" value={this.props.search} 
-    //       onChange={(e) => this.props.handleSearchOnChange(e)} 
-    //     /><label htmlFor="searchMovieList">Filter Movies</label>
-    //   </form>
-    // )
   } // render
 };
 export default MovieSearch;

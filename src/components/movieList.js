@@ -24,6 +24,7 @@ class MovieList extends Component {
 
         <MovieSearch 
           search={this.props.search} 
+          watchedFilter={this.props.watchedFilter} 
           handleSearchOnChange={this.props.handleSearchOnChange} 
           handleSearchOnSubmit={this.props.handleSearchOnSubmit} 
           handleWatchedFilterOnClick={this.props.handleWatchedFilterOnClick} 

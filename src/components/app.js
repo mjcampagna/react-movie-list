@@ -113,6 +113,7 @@ class App extends Component {
       <MovieList 
         movies={this.state.moviesDisplayed} 
         search={this.state.search} 
+        watchedFilter={this.state.watchedFilter} 
         newMovieTitle={this.state.newMovieTitle} 
         handleSearchOnChange={this.handleSearchOnChange.bind(this)} 
         handleSearchOnSubmit={this.handleSearchOnSubmit.bind(this)} 
