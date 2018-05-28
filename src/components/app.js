@@ -15,6 +15,16 @@ class App extends Component {
 		};
 	} // constructor
 
+  filterMovieList(search) {
+		let filteredMovieList = this.state.movies;
+		filteredMovieList = filteredMovieList.filter( movie => {
+      return movie.title.toLowerCase().includes( search.toLowerCase() );
+    });
+    this.setState({
+      moviesDisplayed: filteredMovieList
+    });	
+  }
+
 	handleAddChange(event) {
 		event.preventDefault();
 		this.setState({ movieToAdd: event.target.value });
@@ -41,19 +51,11 @@ class App extends Component {
 
   handleSearchChange(event) {
 		event.preventDefault();
-
     let search = event.target.value;
 		this.setState({
       search: search
     });
-
-		let filteredMovieList = this.state.movies;
-		filteredMovieList = filteredMovieList.filter( movie => {
-			return movie.title.toLowerCase().includes( search.toLowerCase() );
-		});
-		this.setState({
-      moviesDisplayed: filteredMovieList
-    });	
+    this.filterMovieList(search);
 	}
 
   handleSearchSubmit(event) {
@@ -65,7 +67,11 @@ class App extends Component {
 	}
 
 	handleSearchRadios(event) {
-
+    let search = this.state.search;
+    this.setState({
+      filter: event.target.value
+    });
+    this.filterMovieList(search);
 	}
 
   componentWillMount() {
@@ -77,6 +83,7 @@ class App extends Component {
   render() {
     return (
       <MovieList 
+        search={this.state.search} 
         movies={this.state.moviesDisplayed} 
         movieToAdd={this.state.movieToAdd} 
         handleAddChange={this.handleAddChange.bind(this)} 
@@ -85,7 +92,6 @@ class App extends Component {
         handleSearchChange={this.handleSearchChange.bind(this)} 
         handleSearchSubmit={this.handleSearchSubmit.bind(this)} 
         handleSearchRadios={this.handleSearchRadios.bind(this)}
-
       />
     );
   } // render

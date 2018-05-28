@@ -1,29 +1,24 @@
 import React, {Component} from 'react';
 
 class MovieSearch extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-
-		};
-	} // constructor
-
   render() {
     return (
       <form onSubmit={(e) => this.props.handleSearchSubmit(e)}>
 
-        <input type="radio" id="allMovies" name="filterWatchedMovies" value="all" 
-          onChange={(e) => this.props.handleSearchRadios(e)}
+        {/* <input type="radio" id="allMovies" name="filterWatchedMovies" value="all" 
+          checked={this.state.filter === 'all'} 
+          onChange={(e) => this.updateFilter(e)}
         /><label htmlFor="allMovies">All</label>
 
         <input type="radio" id="watchedMovies" name="filterWatchedMovies" value="watched" 
-          onChange={(e) => this.props.handleSearchRadios(e)}
+          checked={this.state.filter === 'watched'} 
+          onChange={(e) => this.updateFilter(e)}
         /><label htmlFor="watchedMovies">Watched</label>
 
         <input type="radio" id="unwatchedMovies" name="filterWatchedMovies" value="unwatched" 
-          onChange={(e) => this.props.handleSearchRadios(e)}
-        /><label htmlFor="unwatchedMovies">Unwatched</label>
+          checked={this.state.filter === 'unwatched'} 
+          onChange={(e) => this.updateFilter(e)}
+        /><label htmlFor="unwatchedMovies">Unwatched</label> */}
 
         <input type="text" id="filterMovieList" value={this.props.search} 
           onChange={(e) => this.props.handleSearchChange(e)} 
