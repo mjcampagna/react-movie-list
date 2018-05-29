@@ -6,11 +6,18 @@ const fetch = require('node-fetch');
 const express = require('express');
 const app = express();
 
+const publicPath = path.resolve(__dirname, '../dist');
+app.use(express.static(publicPath));
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-const publicPath = path.resolve(__dirname, '../dist');
-app.use(express.static(publicPath));
+const mysql = require('mysql');
+let connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	database: 'movie_list'
+});
 
 app.post('/movie', ( req, res) => {
 	let query = req.body.title;
@@ -24,9 +31,24 @@ app.post('/movie', ( req, res) => {
 	})
 	.then( response => response.text() )
 	.then( data => {
+
+		let movies = JSON.parse(data);
+		let movie = movies.results[0];
+
+		let movieInfo = {
+			id: movie.id,
+			title: movie.title
+		};
+
+		connection.connect();
+		connection.query('INSERT INTO movies SET ?', movieInfo, (err, result) => {
+			if (err) throw err;
+		});
+		connection.end();
+
 		res.json(data);
 	})
-	.catch( err => res.statusCode(500).end() );
+	.catch( err => res.status(500).end() );
 
 });
 
