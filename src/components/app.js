@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import 'normalize.css';
 import "../app.css";
 
-import "../../config/config.js";
+// import "../../config/config.js";
 
 import MovieList from './movieList.js';
 
@@ -95,38 +95,54 @@ class App extends Component {
   handleAddMovieOnSubmit(event) {
     event.preventDefault();
 
-    const apiKey = TMDB_APIKEY;
-    const query = this.state.newMovieTitle.split(' ').join('+');
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`, {
+    fetch('/movie', {
+      body: JSON.stringify( { title: this.state.newMovieTitle } ),
       headers: {
         'content-type': 'application/json'
       },
-      method: 'GET',
-      mode: 'cors'
+      method: 'POST'
     })
-    .then( response => response.text() )
+    .then( response => response.json() )
     .then( data => {
-      let results = JSON.parse(data).results;
-      let movie = results[0];
+      let movie = JSON.parse(data).results[0];
+      console.log( movie );
+    })
+    .catch( err => console.log(err) );
 
-      let watched = this.state.watchedFilter === true ? true : false;
-      let movies = this.state.movies;
-      movies.push({
-        title: movie.title,
-        watched: watched
-      });
-      this.setState((state, props) => {
-        return {
-          movies: movies,
-          search: '',
-          newMovieTitle: ''
-        }
-      }, () => {
-        this.searchMovieList('')
-      });
+    
+    // const apiKey = TMDB_APIKEY;
+    // const query = this.state.newMovieTitle.split(' ').join('+');
+    // fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`, {
+    //   headers: {
+    //     'content-type': 'application/json'
+    //   },
+    //   method: 'GET',
+    //   mode: 'cors'
+    // })
+    // .then( response => response.text() )
+    // .then( data => {
+    //   let results = JSON.parse(data).results;
+    //   let movie = results[0];
 
-    }) 
-    .catch( err => console.error('ERROR', err) );
+    //   let watched = this.state.watchedFilter === true ? true : false;
+    //   let movies = this.state.movies;
+    //   movies.push({
+    //     title: movie.title,
+    //     watched: watched
+    //   });
+    //   this.setState((state, props) => {
+    //     return {
+    //       movies: movies,
+    //       search: '',
+    //       newMovieTitle: ''
+    //     }
+    //   }, () => {
+    //     this.searchMovieList('')
+    //   });
+
+    // }) 
+    // .catch( err => console.error('ERROR', err) );
+
 
     // let movies = this.state.movies;
     // movies.push({
@@ -143,7 +159,7 @@ class App extends Component {
     //   this.searchMovieList('')
     // });
 
-  }
+  } // handleAddMovieOnSubmit
 
   render() {
     return (
