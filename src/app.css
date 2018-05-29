@@ -159,3 +159,11 @@ ul#movieList button {
 ul#movieList button.watched {
   background-color: orange;
 }
+
+ul#movieList li span.movie-title {
+  cursor: pointer;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: bold;
+  letter-spacing: 0.0125rem;
+}
