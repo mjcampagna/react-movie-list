@@ -105,11 +105,27 @@ class App extends Component {
     .then( response => response.json() )
     .then( data => {
       let movie = JSON.parse(data).results[0];
-      console.log( movie );
-    })
+
+      let watched = this.state.watchedFilter === true ? true : false;
+      let movies = this.state.movies;
+      movies.push({
+        title: movie.title,
+        watched: watched
+      });
+      this.setState((state, props) => {
+        return {
+          movies: movies,
+          search: '',
+          newMovieTitle: ''
+        }
+      }, () => {
+        this.searchMovieList('')
+      });
+
+  })
     .catch( err => console.log(err) );
 
-    
+
     // const apiKey = TMDB_APIKEY;
     // const query = this.state.newMovieTitle.split(' ').join('+');
     // fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`, {
