@@ -6,16 +6,21 @@ import "../app.css";
 
 import MovieList from './movieList.js';
 
-class App extends Component {
+export default class App extends Component {
 	constructor(props) {
     super(props);
-
 		this.state = {
-      movies: props.movies || [],
+      movies: [],
       search: '',
       watchedFilter: 'all',
       newMovieTitle: ''
-		};
+    };
+    this.handleSearchOnChange = this.handleSearchOnChange.bind(this);
+    this.handleSearchOnSubmit = this.handleSearchOnSubmit.bind(this);
+    this.handleWatchedButtonOnClick = this.handleWatchedButtonOnClick.bind(this);
+    this.handleWatchedFilterOnClick = this.handleWatchedFilterOnClick.bind(this);
+    this.handleAddMovieOnChange = this.handleAddMovieOnChange.bind(this);
+    this.handleAddMovieOnSubmit = this.handleAddMovieOnSubmit.bind(this)
 	} // constructor
 
   componentWillMount() {
@@ -125,56 +130,6 @@ class App extends Component {
   })
     .catch( err => console.log(err) );
 
-
-    // const apiKey = TMDB_APIKEY;
-    // const query = this.state.newMovieTitle.split(' ').join('+');
-    // fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`, {
-    //   headers: {
-    //     'content-type': 'application/json'
-    //   },
-    //   method: 'GET',
-    //   mode: 'cors'
-    // })
-    // .then( response => response.text() )
-    // .then( data => {
-    //   let results = JSON.parse(data).results;
-    //   let movie = results[0];
-
-    //   let watched = this.state.watchedFilter === true ? true : false;
-    //   let movies = this.state.movies;
-    //   movies.push({
-    //     title: movie.title,
-    //     watched: watched
-    //   });
-    //   this.setState((state, props) => {
-    //     return {
-    //       movies: movies,
-    //       search: '',
-    //       newMovieTitle: ''
-    //     }
-    //   }, () => {
-    //     this.searchMovieList('')
-    //   });
-
-    // }) 
-    // .catch( err => console.error('ERROR', err) );
-
-
-    // let movies = this.state.movies;
-    // movies.push({
-    //   title: this.state.newMovieTitle,
-    //   watched: false
-    // });
-    // this.setState((state, props) => {
-    //   return {
-    //     movies: movies,
-    //     search: '',
-    //     newMovieTitle: ''
-    //   }
-    // }, () => {
-    //   this.searchMovieList('')
-    // });
-
   } // handleAddMovieOnSubmit
 
   render() {
@@ -184,16 +139,13 @@ class App extends Component {
         search={this.state.search} 
         watchedFilter={this.state.watchedFilter} 
         newMovieTitle={this.state.newMovieTitle} 
-        handleSearchOnChange={this.handleSearchOnChange.bind(this)} 
-        handleSearchOnSubmit={this.handleSearchOnSubmit.bind(this)} 
-        handleWatchedButtonOnClick={this.handleWatchedButtonOnClick.bind(this)} 
-        handleWatchedFilterOnClick={this.handleWatchedFilterOnClick.bind(this)} 
-        handleAddMovieOnChange={this.handleAddMovieOnChange.bind(this)} 
-        handleAddMovieOnSubmit={this.handleAddMovieOnSubmit.bind(this)} 
+        handleSearchOnChange={this.handleSearchOnChange} 
+        handleSearchOnSubmit={this.handleSearchOnSubmit} 
+        handleWatchedButtonOnClick={this.handleWatchedButtonOnClick} 
+        handleWatchedFilterOnClick={this.handleWatchedFilterOnClick} 
+        handleAddMovieOnChange={this.handleAddMovieOnChange} 
+        handleAddMovieOnSubmit={this.handleAddMovieOnSubmit} 
       />
     );
   } // render
-
 };
-
-export default App;
